@@ -6,6 +6,17 @@ using System.Threading;
 
 public class Controller : MonoBehaviour
 {
+
+    /// <summary>
+    /// JUST
+    /// SEEING
+    /// IF
+    /// THIS
+    /// GETS
+    /// PUSHED
+    /// TO
+    /// GITHUB
+    /// </summary>
     public static Controller instance;
 
     private void Awake() => instance = this;
