@@ -7,7 +7,7 @@ public class Action : MonoBehaviour
 {
     Dictionary<string, int> dict = new Dictionary<string, int>(9)
     {
-        {"Square00", 0}, {"Square10", 1}, {"Square20", 2}, {"Square01", 3}, {"Square11", 4}, {"Square21", 5}, {"Square02", 6}, {"Square12", 7}, {"Square22", 8}
+        {"Square00", 0}, {"Square10", 1}, {"Square20", 2}, {"Square30", 3}, {"Square01", 4}, {"Square11", 5}, {"Square21", 6}, {"Square31", 7}, {"Square02", 8}, {"Square12", 9}, {"Square22", 10}, {"Square32", 11}, {"Square03", 12}, {"Square13", 13}, {"Square23", 14}, {"Square33", 15},
     };
 
     public void Click()
@@ -41,6 +41,7 @@ public class Action : MonoBehaviour
             CheckWin();
             data.player = 1;
         }
+        Controller.instance.UpdateCurrentPlayer();
     }
 
     void AdditionalClick()
@@ -125,6 +126,7 @@ public class Action : MonoBehaviour
             transform.GetChild(3).gameObject.SetActive(true);
         }
         else transform.GetChild(2).gameObject.SetActive(true);
+        Controller.instance.UpdateCurrentPlayer();
     }
 
     public void CheckWin()
@@ -132,48 +134,58 @@ public class Action : MonoBehaviour
         var data = Controller.instance.data;
 
         //Horizontal Win Conditions 
-        if(data.scores[0] == data.scores[1] && data.scores[1] == data.scores[2])
+        if(data.scores[0] == data.scores[1] && data.scores[1] == data.scores[2] && data.scores[2] == data.scores[3])
         {
             Controller.instance.win1.SetActive(true);
             TriggerWin();
         }
-        if (data.scores[3] == data.scores[4] && data.scores[4] == data.scores[5])
+        if (data.scores[4] == data.scores[5] && data.scores[5] == data.scores[6] && data.scores[6] == data.scores[7])
         {
             Controller.instance.win2.SetActive(true);
             TriggerWin();
         }
-        if (data.scores[6] == data.scores[7] && data.scores[7] == data.scores[8])
+        if (data.scores[8] == data.scores[9] && data.scores[9] == data.scores[10] && data.scores[10] == data.scores[11])
         {
             Controller.instance.win3.SetActive(true);
             TriggerWin();
         }
-
-        //Vertical Win Conditions
-        if (data.scores[0] == data.scores[3] && data.scores[3] == data.scores[6])
+        if (data.scores[12] == data.scores[13] && data.scores[13] == data.scores[14] && data.scores[14] == data.scores[15])
         {
             Controller.instance.win4.SetActive(true);
             TriggerWin();
         }
-        if (data.scores[1] == data.scores[4] && data.scores[4] == data.scores[7])
+
+        //Vertical Win Conditions
+        if (data.scores[0] == data.scores[4] && data.scores[4] == data.scores[8] && data.scores[8] == data.scores[12])
         {
             Controller.instance.win5.SetActive(true);
             TriggerWin();
         }
-        if (data.scores[2] == data.scores[5] && data.scores[5] == data.scores[8])
+        if (data.scores[1] == data.scores[5] && data.scores[5] == data.scores[9] && data.scores[9] == data.scores[13])
         {
             Controller.instance.win6.SetActive(true);
             TriggerWin();
         }
-
-        //CrissCross Win Conditions
-        if (data.scores[0] == data.scores[4] && data.scores[4] == data.scores[8])
+        if (data.scores[2] == data.scores[6] && data.scores[6] == data.scores[10] && data.scores[10] == data.scores[14])
         {
             Controller.instance.win7.SetActive(true);
             TriggerWin();
         }
-        if (data.scores[6] == data.scores[4] && data.scores[4] == data.scores[2])
+        if (data.scores[3] == data.scores[7] && data.scores[7] == data.scores[11] && data.scores[11] == data.scores[15])
         {
             Controller.instance.win8.SetActive(true);
+            TriggerWin();
+        }
+
+        //CrissCross Win Conditions
+        if (data.scores[0] == data.scores[5] && data.scores[5] == data.scores[10] && data.scores[10] == data.scores[15])
+        {
+            Controller.instance.win9.SetActive(true);
+            TriggerWin();
+        }
+        if (data.scores[3] == data.scores[6] && data.scores[6] == data.scores[9] && data.scores[9] == data.scores[12])
+        {
+            Controller.instance.win10.SetActive(true);
             TriggerWin();
         }
     }

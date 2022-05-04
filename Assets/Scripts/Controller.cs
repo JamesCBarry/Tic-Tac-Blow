@@ -6,28 +6,18 @@ using System.Threading;
 
 public class Controller : MonoBehaviour
 {
-
-    /// <summary>
-    /// JUST
-    /// SEEING
-    /// IF
-    /// THIS
-    /// GETS
-    /// PUSHED
-    /// TO
-    /// GITHUB
-    /// </summary>
     public static Controller instance;
 
     private void Awake() => instance = this;
 
     [SerializeField] private TMP_Text Player1Score;
     [SerializeField] private TMP_Text Player2Score;
+    [SerializeField] private TMP_Text CurrentPlayer;
 
     public List<GameObject> squareList = new List<GameObject>();
     public GameObject squares;
     public GameObject explosion;
-    public GameObject temporaryExplosion;
+    private GameObject temporaryExplosion;
     public Transform grid;
 
     public GameObject win1;
@@ -38,6 +28,8 @@ public class Controller : MonoBehaviour
     public GameObject win6;
     public GameObject win7;
     public GameObject win8;
+    public GameObject win9;
+    public GameObject win10;
 
     public GameObject WinText;
     public GameObject TieText;
@@ -45,12 +37,13 @@ public class Controller : MonoBehaviour
     public GameObject ResetButton;
 
     public Data data;
+    public List<int> startingList = new List<int>() { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
 
-    int widthUnits = 3;
-    int heightUnits = 3;
+    int widthUnits = 4;
+    int heightUnits = 4;
 
-    int width = 300;
-    int height = 300;
+    int width = 225;
+    int height = 225;
 
     Dictionary<string, int> dict = new Dictionary<string, int>(9);
 
@@ -102,23 +95,35 @@ public class Controller : MonoBehaviour
         Destroy(temporaryExplosion);
         ResetGrid();
         CreateGrid();
-        data.scores = new List<int>() { 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+        data.scores = new List<int>() { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
+    }
+
+    public void UpdateCurrentPlayer()
+    {
+        if (data.player == 1)
+        {
+            CurrentPlayer.text = "X";
+        }
+        else
+        {
+            CurrentPlayer.text = "O";
+        }
     }
 
     public void UpdateScores()
     {
-        Player1Score.text = "Player 1: " + data.playerOneWins;
-        Player2Score.text = "Player 2: " + data.playerTwoWins;
+        Player1Score.text = "Player 1 (X):" + data.playerOneWins;
+        Player2Score.text = "Player 2 (O):" + data.playerTwoWins;
     }
-
-    void CreateGrid()
+    void CreateGrid
+        ()
     {
         for (int y = 0; y < heightUnits; y++)
         {
             for (int x = 0; x < widthUnits; x++)
             {
                 GameObject GameObject = Instantiate(squares, new Vector2(0, 0), Quaternion.identity, grid);
-                GameObject.transform.localPosition = new Vector2(x * width - width, y * height - height);
+                GameObject.transform.localPosition = new Vector2(x * width - (width * 1.5f), y * height - (height * 1.5f));
                 GameObject.name = "Square" + x + y;
                 squareList.Add(GameObject);
             }
@@ -139,5 +144,7 @@ public class Controller : MonoBehaviour
         win6.gameObject.SetActive(false);
         win7.gameObject.SetActive(false);
         win8.gameObject.SetActive(false);
+        win9.gameObject.SetActive(false);
+        win10.gameObject.SetActive(false);
     }
 }
